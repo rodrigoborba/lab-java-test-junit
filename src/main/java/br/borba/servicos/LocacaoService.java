@@ -7,7 +7,8 @@ import java.util.Date;
 import br.borba.entidades.Filme;
 import br.borba.entidades.Locacao;
 import br.borba.entidades.Usuario;
-import br.borba.utils.DataUtils;
+import br.borba.exception.FilmeSemEstoqueException;
+import br.borba.exception.LocadoraException;
 
 public class LocacaoService {
 	
@@ -28,10 +29,37 @@ public class LocacaoService {
 		
 		return locacao;
 	}
+	
+	public Locacao alugarFilmeComTratamentoErro(Usuario usuario, Filme filme) 
+			throws FilmeSemEstoqueException, LocadoraException {
+		
+		if(filme == null) {
+			throw new LocadoraException("Filme vazio");
+		}
+		
+		if(filme.getEstoque() <= 0) {
+			throw new FilmeSemEstoqueException("Filme sem estoque");
+		}
+		
+		if(usuario == null ) {
+			throw new LocadoraException("Usuário vazio");
+		}
+		
+		Locacao locacao = new Locacao();
+		locacao.setFilme(filme);
+		locacao.setUsuario(usuario);
+		locacao.setDataLocacao(new Date());
+		locacao.setValor(filme.getPrecoLocacao());
 
-	public static void main(String[] args) {
+		//Entrega no dia seguinte
+		Date dataEntrega = new Date();
+		dataEntrega = adicionarDias(dataEntrega, 1);
+		locacao.setDataRetorno(dataEntrega);
 		
+		//Salvando a locacao...	
+		//TODO adicionar mÃ©todo para salvar
 		
-		
+		return locacao;
 	}
+
 }
