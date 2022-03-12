@@ -1,12 +1,13 @@
-package br.ce.wcaquino.servicos;
+package br.borba.servicos;
 
-import static br.ce.wcaquino.utils.DataUtils.adicionarDias;
+import static br.borba.utils.DataUtils.adicionarDias;
 
 import java.util.Date;
 
-import br.ce.wcaquino.entidades.Filme;
-import br.ce.wcaquino.entidades.Locacao;
-import br.ce.wcaquino.entidades.Usuario;
+import br.borba.entidades.Filme;
+import br.borba.entidades.Locacao;
+import br.borba.entidades.Usuario;
+import br.borba.utils.DataUtils;
 
 public class LocacaoService {
 	
@@ -29,6 +30,8 @@ public class LocacaoService {
 	}
 
 	public static void main(String[] args) {
+		
+		
 		
 	}
 }
