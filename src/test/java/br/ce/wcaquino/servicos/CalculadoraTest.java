@@ -4,7 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.ce.wcaquino.exceptions.NaoPodeDividirPorZeroException;
+import br.borba.exceptions.NaoPodeDividirPorZeroException;
+import br.borba.servicos.Calculadora;
 
 public class CalculadoraTest {
 	
@@ -62,5 +63,15 @@ public class CalculadoraTest {
 		int b = 0;
 		
 		calc.divide(a, b);
+	}
+	
+	@Test
+	public void deveDividir(){
+		String a = "6";
+		String b = "3";
+		
+		int resultado = calc.divide(a, b);
+		
+		Assert.assertEquals(2, resultado);
 	}
 }

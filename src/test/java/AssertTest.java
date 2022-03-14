@@ -1,7 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.ce.wcaquino.entidades.Usuario;
+import br.borba.entidades.Usuario;
 
 public class AssertTest {
 

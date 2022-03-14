@@ -1,5 +1,7 @@
 package br.ce.wcaquino.servicos;
 
+import static br.ce.wcaquino.builders.FilmeBuilder.umFilme;
+import static br.ce.wcaquino.builders.UsuarioBuilder.umUsuario;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -13,17 +15,30 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import br.ce.wcaquino.entidades.Filme;
-import br.ce.wcaquino.entidades.Locacao;
-import br.ce.wcaquino.entidades.Usuario;
-import br.ce.wcaquino.exceptions.FilmeSemEstoqueException;
-import br.ce.wcaquino.exceptions.LocadoraException;
+import br.borba.daos.LocacaoDAO;
+import br.borba.entidades.Filme;
+import br.borba.entidades.Locacao;
+import br.borba.entidades.Usuario;
+import br.borba.exceptions.FilmeSemEstoqueException;
+import br.borba.exceptions.LocadoraException;
+import br.borba.servicos.LocacaoService;
+import br.borba.servicos.SPCService;
 
 @RunWith(Parameterized.class)
 public class CalculoValorLocacaoTest {
 
+	@InjectMocks
 	private LocacaoService service;
+	
+	@Mock
+	private LocacaoDAO dao;
+	
+	@Mock
+	private SPCService spc;
 	
 	@Parameter
 	public List<Filme> filmes;
@@ -36,16 +51,16 @@ public class CalculoValorLocacaoTest {
 	
 	@Before
 	public void setup(){
-		service = new LocacaoService();
+		MockitoAnnotations.initMocks(this);
 	}
 	
-	private static Filme filme1 = new Filme("Filme 1", 2, 4.0);
-	private static Filme filme2 = new Filme("Filme 2", 2, 4.0);
-	private static Filme filme3 = new Filme("Filme 3", 2, 4.0);
-	private static Filme filme4 = new Filme("Filme 4", 2, 4.0);
-	private static Filme filme5 = new Filme("Filme 5", 2, 4.0);
-	private static Filme filme6 = new Filme("Filme 6", 2, 4.0);
-	private static Filme filme7 = new Filme("Filme 7", 2, 4.0);
+	private static Filme filme1 = umFilme().agora();
+	private static Filme filme2 = umFilme().agora();
+	private static Filme filme3 = umFilme().agora();
+	private static Filme filme4 = umFilme().agora();
+	private static Filme filme5 = umFilme().agora();
+	private static Filme filme6 = umFilme().agora();
+	private static Filme filme7 = umFilme().agora();
 	
 	@Parameters(name="{2}")
 	public static Collection<Object[]> getParametros(){
@@ -62,7 +77,7 @@ public class CalculoValorLocacaoTest {
 	@Test
 	public void deveCalcularValorLocacaoConsiderandoDescontos() throws FilmeSemEstoqueException, LocadoraException{
 		//cenario
-		Usuario usuario = new Usuario("Usuario 1");
+		Usuario usuario = umUsuario().agora();
 		
 		//acao
 		Locacao resultado = service.alugarFilme(usuario, filmes);

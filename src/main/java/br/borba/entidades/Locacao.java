@@ -1,4 +1,4 @@
-package br.ce.wcaquino.entidades;
+package br.borba.entidades;
 
 import java.util.Date;
 import java.util.List;
@@ -41,5 +41,4 @@ public class Locacao {
 	public void setFilmes(List<Filme> filmes) {
 		this.filmes = filmes;
 	}
-	
 }
