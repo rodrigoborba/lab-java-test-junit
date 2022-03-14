@@ -1,4 +1,4 @@
-package br.ce.wcaquino.builders;
+package br.borba.builders;
 
 import br.borba.entidades.Filme;
 import br.borba.entidades.Locacao;
@@ -7,9 +7,9 @@ import br.borba.utils.DataUtils;
 
 import java.util.Arrays;
 
+import static br.borba.builders.FilmeBuilder.umFilme;
+import static br.borba.builders.UsuarioBuilder.umUsuario;
 import static br.borba.utils.DataUtils.obterDataComDiferencaDias;
-import static br.ce.wcaquino.builders.FilmeBuilder.umFilme;
-import static br.ce.wcaquino.builders.UsuarioBuilder.umUsuario;
 
 import java.lang.Double;
 import java.util.Date;

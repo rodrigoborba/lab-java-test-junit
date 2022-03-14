@@ -1,4 +1,4 @@
-package br.ce.wcaquino.builders;
+package br.borba.builders;
 
 import br.borba.entidades.Usuario;
 

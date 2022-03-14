@@ -1,4 +1,4 @@
-package br.ce.wcaquino.servicos;
+package br.borba.servicos;
 
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package br.ce.wcaquino.matchers;
+package br.borba.matchers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

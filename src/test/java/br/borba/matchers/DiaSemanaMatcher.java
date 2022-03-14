@@ -1,4 +1,4 @@
-package br.ce.wcaquino.matchers;
+package br.borba.matchers;
 
 import java.util.Calendar;
 import java.util.Date;

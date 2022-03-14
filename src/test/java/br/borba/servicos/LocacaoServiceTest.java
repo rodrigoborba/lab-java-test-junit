@@ -1,15 +1,13 @@
-package br.ce.wcaquino.servicos;
+package br.borba.servicos;
 
-
-
+import static br.borba.builders.FilmeBuilder.umFilme;
+import static br.borba.builders.FilmeBuilder.umFilmeSemEstoque;
+import static br.borba.builders.LocacaoBuilder.umLocacao;
+import static br.borba.builders.UsuarioBuilder.umUsuario;
+import static br.borba.matchers.MatchersProprios.caiNumaSegunda;
+import static br.borba.matchers.MatchersProprios.ehHoje;
+import static br.borba.matchers.MatchersProprios.ehHojeComDiferencaDias;
 import static br.borba.utils.DataUtils.isMesmaData;
-import static br.ce.wcaquino.builders.FilmeBuilder.umFilme;
-import static br.ce.wcaquino.builders.FilmeBuilder.umFilmeSemEstoque;
-import static br.ce.wcaquino.builders.LocacaoBuilder.umLocacao;
-import static br.ce.wcaquino.builders.UsuarioBuilder.umUsuario;
-import static br.ce.wcaquino.matchers.MatchersProprios.caiNumaSegunda;
-import static br.ce.wcaquino.matchers.MatchersProprios.ehHoje;
-import static br.ce.wcaquino.matchers.MatchersProprios.ehHojeComDiferencaDias;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -23,6 +21,8 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -68,6 +68,18 @@ public class LocacaoServiceTest {
 	@Before
 	public void setup(){
 		MockitoAnnotations.initMocks(this);
+		System.out.println("Iniciando 2...");
+		CalculadoraTest.ordem.append("2");
+	}
+	
+	@After
+	public void tearDown(){
+		System.out.println("finalizando 2...");
+	}
+	
+	@AfterClass
+	public static void tearDownClass(){
+		System.out.println(CalculadoraTest.ordem.toString());
 	}
 	
 	@Test
@@ -76,15 +88,15 @@ public class LocacaoServiceTest {
 		Usuario usuario = umUsuario().agora();
 		List<Filme> filmes = Arrays.asList(umFilme().comValor(5.0).agora());
 
-//		Mockito.doReturn(DataUtils.obterData(28, 4, 2017)).when(service).obterData();
+		Mockito.doReturn(DataUtils.obterData(28, 4, 2017)).when(service).obterData();
 		
 		//acao
 		Locacao locacao = service.alugarFilme(usuario, filmes);
 			
 		//verificacao
 		error.checkThat(locacao.getValor(), is(equalTo(5.0)));
-//		error.checkThat(isMesmaData(locacao.getDataLocacao(), DataUtils.obterData(28, 4, 2017)), is(true));
-//		error.checkThat(isMesmaData(locacao.getDataRetorno(), DataUtils.obterData(29, 4, 2017)), is(true));
+		error.checkThat(isMesmaData(locacao.getDataLocacao(), DataUtils.obterData(28, 4, 2017)), is(true));
+		error.checkThat(isMesmaData(locacao.getDataRetorno(), DataUtils.obterData(29, 4, 2017)), is(true));
 	}
 	
 	@Test(expected = FilmeSemEstoqueException.class)
@@ -129,13 +141,13 @@ public class LocacaoServiceTest {
 		Usuario usuario = umUsuario().agora();
 		List<Filme> filmes = Arrays.asList(umFilme().agora());
 		
-//		Mockito.doReturn(DataUtils.obterData(29, 4, 2017)).when(service).obterData();
+		Mockito.doReturn(DataUtils.obterData(29, 4, 2017)).when(service).obterData();
 		
 		//acao
 		Locacao retorno = service.alugarFilme(usuario, filmes);
 		
 		//verificacao
-//		assertThat(retorno.getDataRetorno(), caiNumaSegunda());
+		assertThat(retorno.getDataRetorno(), caiNumaSegunda());
 	}
 	
 	@Test
